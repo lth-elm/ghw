@@ -6,8 +6,8 @@ import requests
 # Replace with your actual ChatGPT API key
 API_KEY = "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"
 
-# Define a function to call the ChatGPT API
 
+# Define a function to call the ChatGPT API
 
 def call_chatgpt(prompt):
     headers = {
@@ -51,8 +51,8 @@ def call_chatgpt(prompt):
         "Failed to get a response from the API after multiple retries.")
 '''
 
-# Define functions for generating content in different formats
 
+# Define functions for generating content in different formats
 
 def generate_article_draft(text):
     prompt = f"Generate the first draft of an article based on the following text: {text}"
@@ -73,8 +73,8 @@ def generate_youtube_script(text):
     prompt = f"Write a YouTube video script based on the following article: {text}"
     return call_chatgpt(prompt)
 
-# Define UI element event handlers
 
+# Define UI element event handlers
 
 def on_generate_article_draft():
     input_text = text_input.get("1.0", tk.END).strip()
