@@ -60,18 +60,21 @@ def generate_article_draft(text):
     return call_chatgpt(prompt)
 
 
-def generate_twitter_format(text):
-    prompt = f"Write a Twitter version of the following article: {text}"
+def generate_twitter_format(text, tone):
+    # to add: length of thread, thread or not ... images ...
+    prompt = f"Write a {tone.lower()} Twitter thread version of the following article: {text}"
     return call_chatgpt(prompt)
 
 
-def generate_linkedin_format(text):
-    prompt = f"Write a LinkedIn version of the following article: {text}"
+def generate_linkedin_format(text, tone):
+    # to add: starting with a catchphrase ... carousel ...
+    prompt = f"Write a {tone.lower()} LinkedIn version of the following article: {text}"
     return call_chatgpt(prompt)
 
 
-def generate_youtube_script(text):
-    prompt = f"Write a YouTube video script based on the following article: {text}"
+def generate_youtube_script(text, tone):
+    # to add: length of video ...
+    prompt = f"Write a {tone.lower()} YouTube video script based on the following article: {text}"
     return call_chatgpt(prompt)
 
 
@@ -87,13 +90,12 @@ def on_generate_article_draft():
 
 def on_generate_all_formats():
     input_text = text_output.get("1.0", tk.END).strip()
+    tone = tone_combobox.get()
+
     if input_text:
-        twitter_text = generate_twitter_format(input_text)
-        time.sleep(3)
-        linkedin_text = generate_linkedin_format(input_text)
-        time.sleep(3)
-        youtube_text = generate_youtube_script(input_text)
-        time.sleep(3)
+        twitter_text = generate_twitter_format(input_text, tone)
+        linkedin_text = generate_linkedin_format(input_text, tone)
+        youtube_text = generate_youtube_script(input_text, tone)
 
         twitter_output.delete("1.0", tk.END)
         linkedin_output.delete("1.0", tk.END)
@@ -134,6 +136,20 @@ generate_article_button = ttk.Button(
     buttons_frame, text="Generate Article Draft", command=on_generate_article_draft)
 generate_all_formats_button = ttk.Button(
     buttons_frame, text="Generate All Formats", command=on_generate_all_formats)
+
+# Add tone selection combobox
+tone_label = ttk.Label(mainframe, text="Tone:")
+tone_combobox = ttk.Combobox(mainframe, state="readonly", values=[
+    "Neutral",
+    "Authoritative",
+    "Conversational",
+    "Enthusiastic",
+    "Humorous",
+    "Professional"
+])
+tone_combobox.set("Neutral")
+tone_label.grid(column=2, row=0, padx=5, pady=5, sticky=(tk.W, tk.E))
+tone_combobox.grid(column=3, row=0, padx=5, pady=5, sticky=(tk.W, tk.E))
 
 # Configure button layout
 generate_article_button.grid(column=0, row=0, padx=5, pady=5)
