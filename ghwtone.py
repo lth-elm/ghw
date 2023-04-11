@@ -91,6 +91,7 @@ def on_generate_article_draft():
 def on_generate_all_formats():
     input_text = text_output.get("1.0", tk.END).strip()
     tone = tone_combobox.get()
+    tone = "" if (tone == "Neutral") else tone
 
     if input_text:
         twitter_text = generate_twitter_format(input_text, tone)
@@ -145,6 +146,7 @@ tone_combobox = ttk.Combobox(mainframe, state="readonly", values=[
     "Conversational",
     "Enthusiastic",
     "Humorous",
+    "Analytical",
     "Professional"
 ])
 tone_combobox.set("Neutral")
