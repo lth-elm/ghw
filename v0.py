@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
 import requests
+import config
 # import time
 
 # Replace with your actual ChatGPT API key
-API_KEY = "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"
+API_KEY = config.API_KEY
 
 
 # Define a function to call the ChatGPT API
